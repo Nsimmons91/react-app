@@ -5,40 +5,53 @@ import ResultDisplay from "./ResultDisplay";
 
 
 const Game = () => {
- const [playerChoice, setPlayerChoice] = useState("");
- const [computerChoice, setComputerChoice] = useState("");
- const [score, setScore] = useState({ wins: 0, losses: 0, ties: 0 });
+  const [userSelection, setUserSelection] = useState("");
+  const [computerSelection, setComputerSelection] = useState("");
+  const [gameStatistics, setGameStatistics] = useState({
+    wins: 0,
+    losses: 0,
+    ties: 0,
+  });
 
 
- const handleChoice = (choice) => {
-   const choices = ["rock", "paper", "scissors"];
-   const computer = choices[Math.floor(Math.random() * choices.length)];
-   setComputerChoice(computer);
-   setPlayerChoice(choice);
+  const handleUserSelection = (playerChoice) => {
+    const choices = ["rock", "paper", "scissors"];
+    const computerChoice = choices[Math.floor(Math.random() * choices.length)];
 
+    setUserSelection(playerChoice);
+    setComputerSelection(computerChoice);
 
-   if (choice === computer) {
-     setScore(prev => ({ ...prev, ties: prev.ties + 1 }));
-   } else if (
-     (choice === "rock" && computer === "scissors") ||
-     (choice === "paper" && computer === "rock") ||
-     (choice === "scissors" && computer === "paper")
-   ) {
-     setScore(prev => ({ ...prev, wins: prev.wins + 1 }));
-   } else {
-     setScore(prev => ({ ...prev, losses: prev.losses + 1 }));
-   }
- };
+    setGameStatistics((prevStats) => {
+      if (playerChoice === computerChoice) {
+        return { ...prevStats, ties: prevStats.ties + 1 };
+      } 
+      
+      if (
+        (playerChoice === "rock" && computerChoice === "scissors") ||
+        (playerChoice === "paper" && computerChoice === "rock") ||
+        (playerChoice === "scissors" && computerChoice === "paper")
+      ) {
+        return { ...prevStats, wins: prevStats.wins + 1 };
+      } 
+      
+      return { ...prevStats, losses: prevStats.losses + 1 };
+    });
+  };
 
-
- return (
-   <div className="game">
-     <PlayerChoice onChoice={handleChoice} selectedChoice={playerChoice} />
-     <ScoreBoard wins={score.wins} losses={score.losses} ties={score.ties}/>
-      <ResultDisplay playerChoice={playerChoice} computerChoice={computerChoice} />
-   </div>
- );
+  return (
+    <div className="game">
+      <PlayerChoice onUserSelection={handleUserSelection} selectedOption={userSelection} />
+      <ScoreBoard
+        wins={gameStatistics.wins}
+        losses={gameStatistics.losses}
+        ties={gameStatistics.ties}
+      />
+      <ResultDisplay
+        userSelection={userSelection}
+        computerSelection={computerSelection}
+      />
+    </div>
+  );
 };
-
 
 export default Game;
