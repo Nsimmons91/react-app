@@ -1,35 +1,83 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+// Child Component for displaying current score
+const ScoreBoard = ({ score, tries }) => {
+  return (
+    <div>
+      <h3>Score</h3>
+      <p>Player: {score.player}</p>
+      <p>Computer: {score.computer}</p>
+      <p>Number of Tries: {tries}</p>
+    </div>
+  );
+};
+
+// Child Component for handling player's choice
+const PlayerChoice = ({ onPlayerChoice }) => {
+  const choices = ['Rock', 'Paper', 'Scissors'];
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div>
+      <h3>Make your choice</h3>
+      {choices.map(choice => (
+        <button key={choice} onClick={() => onPlayerChoice(choice)}>
+          {choice}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      ))}
+    </div>
+  );
+};
 
-export default App
+// Main Game Component
+const RockPaperScissorsGame = () => {
+  const [score, setScore] = useState({ player: 0, computer: 0 });
+  const [message, setMessage] = useState('');
+  const [tries, setTries] = useState(0);
+
+  const playRound = (playerChoice) => {
+    const choices = ['Rock', 'Paper', 'Scissors'];
+    const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+    let result = '';
+    if (playerChoice === computerChoice) {
+      result = "It's a tie!";
+    } else if (
+      (playerChoice === 'Rock' && computerChoice === 'Scissors') ||
+      (playerChoice === 'Paper' && computerChoice === 'Rock') ||
+      (playerChoice === 'Scissors' && computerChoice === 'Paper')
+    ) {
+      result = 'You win!';
+      setScore(prevScore => ({
+        ...prevScore,
+        player: prevScore.player + 1,
+      }));
+    } else {
+      result = 'Computer wins!';
+      setScore(prevScore => ({
+        ...prevScore,
+        computer: prevScore.computer + 1,
+      }));
+    }
+
+    setMessage(`You chose ${playerChoice}, computer chose ${computerChoice}. ${result}`);
+    setTries(prevTries => prevTries + 1);
+  };
+
+  const resetGame = () => {
+    setScore({ player: 0, computer: 0 });
+    setTries(0);
+    setMessage('');
+  };
+
+  return (
+    <div>
+      <h1>Rock Paper Scissors Game</h1>
+      <ScoreBoard score={score} tries={tries} />
+      <PlayerChoice onPlayerChoice={playRound} />
+      <p>{message}</p>
+      <button onClick={resetGame}>Reset Game</button>
+    </div>
+  );
+};
+
+export default RockPaperScissorsGame;
