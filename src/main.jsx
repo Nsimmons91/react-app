@@ -1,11 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import RockPaperScissorsGame from './App';
 
-ReactDOM.render(
+const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(rootElement);  
+
+root.render(
   <React.StrictMode>
     <RockPaperScissorsGame/>
   </React.StrictMode>,
-  document.getElementById('root')
 );
