@@ -5,12 +5,29 @@ import scissorsImg from './assets/scissors.png';
 
 // Child Component for displaying current score
 const ScoreBoard = ({ score, tries }) => {
+  const [showDetails, setShowDetails] = useState(false);
+  const toggleDetails = () => {
+    setShowDetails(prevState => !prevState);
+  }
+
+  const totalGames = tries 
+  const winRatio = totalGames ? ((score.player / totalGames) * 100).toFixed(2) : 0; 
+  const lossRatio = totalGames ? ((score.computer / totalGames) * 100).toFixed(2) : 0;  
   return (
     <div>
       <h3>Score</h3>
       <p>Player: {score.player}</p>
       <p>Computer: {score.computer}</p>
       <p>Number of Tries: {tries}</p>
+      <button onClick={toggleDetails}>
+        {showDetails ? 'Hide Details' : 'Show Details'}
+        </button>
+      {showDetails && (
+        <div>
+          <p>Win Ratio: {winRatio}%</p>
+          <p>Loss Ratio: {lossRatio}%</p>
+        </div>
+        )}
     </div>
   );
 };
