@@ -17,15 +17,23 @@ const ScoreBoard = ({ score, tries }) => {
 
 // Child Component for handling player's choice
 const PlayerChoice = ({ onPlayerChoice }) => {
-  const choices = ['Rock', 'Paper', 'Scissors'];
+  const choices = [
+    {name: 'Rock', img: rockImg},
+    {name: 'Paper', img: paperImg},   
+    {name: 'Scissors', img: scissorsImg} 
+  ];
 
   return (
     <div>
       <h3>Make your choice</h3>
       {choices.map(choice => (
-        <button key={choice} onClick={() => onPlayerChoice(choice)}>
-          {choice}
-        </button>
+        <img
+        key={choice.name}
+        src={choice.img}
+        alt={choice.name}
+        style={{ width: '100px', cursor: 'pointer', margin: '10px' }}
+        onClick={() => onPlayerChoice(choice.name)}
+        />
       ))}
     </div>
   );
