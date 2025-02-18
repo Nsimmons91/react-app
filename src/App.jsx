@@ -74,6 +74,12 @@ const RockPaperScissorsGame = () => {
     setTries(prevTries => prevTries + 1);
   };
 
+  const randomPlayerChoice = () => {
+    const choices = ['Rock', 'Paper', 'Scissors'];
+    const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+    playRound(computerChoice);
+  };
+
   const resetGame = () => {
     setScore({ player: 0, computer: 0 });
     setTries(0);
@@ -86,6 +92,7 @@ const RockPaperScissorsGame = () => {
       <ScoreBoard score={score} tries={tries} />
       <PlayerChoice onPlayerChoice={playRound} />
       <p>{message}</p>
+      <button onClick={randomPlayerChoice}>Random Choice</button> 
       <button onClick={resetGame}>Reset Game</button>
     </div>
   );
