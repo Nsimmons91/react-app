@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import rockImg from './assets/rock.png';
+import paperImg from './assets/paper.png';
+import scissorsImg from './assets/scissors.png';
 
 // Child Component for displaying current score
 const ScoreBoard = ({ score, tries }) => {
