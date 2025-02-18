@@ -1,9 +1,26 @@
-# React + Vite
+ Rock Paper Scissors Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Rock Paper Scissors Game! This is a simple and interactive game where you can challenge the computer in a classic game of Rock Paper Scissors.
 
-Currently, two official plugins are available:
+ How to Play
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# react-app
+1. Objective: 
+   - The goal is to select an option (Rock, Paper, or Scissors) that beats the computer’s randomly selected choice. The rules are simple:
+     - Rock beats Scissors
+     - Scissors beats Paper
+     - Paper beats Rock
+
+2. Game Setup:
+   - Clone the repository to your local machine using:
+   
+3. Instructions:
+   - You will see three images representing Rock, Paper, and Scissors. Click on one to make your choice.
+   - Alternatively, use the "Random Choice" button to let the computer randomly select an option for you.
+   - The game will display the results of the round and update the score.
+
+4. Scoring:
+   - The game keeps track of the number of games won, lost, or tied.
+   - You can view your win/loss ratio and other statistics in the "Details" section.
+
+5. Reset:
+   - Use the "Reset Game" button at any time to clear the scores and start fresh.
